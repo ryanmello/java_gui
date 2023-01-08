@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 
 public class Main {  
   public static void main(String[] args) {
+
+    /*
     JFrame frame = new JFrame(); // creates frame
     frame.setTitle("JFrame Title"); // sets title of frame
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
@@ -13,8 +15,10 @@ public class Main {
 
     ImageIcon image = new ImageIcon("./img/sbf.jpg"); // create image icon
     frame.setIconImage(image.getImage()); // change icon of frame
-    frame.getContentPane().setBackground(Color.pink); // change color of background
-
+    frame.getContentPane().setBackground(new Color(125, 50, 250)); // change color of background
+    */
+    
+    MyFrame myFrame = new MyFrame();
     
   }
 }
