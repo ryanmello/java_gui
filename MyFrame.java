@@ -6,25 +6,23 @@ import java.awt.event.*;
 public class MyFrame extends JFrame implements ActionListener{
   
   JButton button;
-  JTextField textField;
+  JCheckBox box;
   
   MyFrame() {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setLayout(new FlowLayout());
+    this.setLayout(new FlowLayout());    
 
-    button = new JButton("Submit");
+    button = new JButton();
+    button.setText("Submit");
     button.addActionListener(this);
 
-    textField = new JTextField();
-    textField.setPreferredSize(new Dimension(250, 40));
-    textField.setFont(new Font("Consolas", Font.BOLD, 35));
-    textField.setForeground(Color.blue);
-    textField.setBackground(Color.red);
-    textField.setCaretColor(Color.white);
-    textField.setText("Username");
-    
+    box = new JCheckBox();
+    box.setText("I am not a robot");
+    box.setFocusable(false);
+    box.setFont(new Font("Times New Roman", Font.PLAIN, 35));
+
     this.add(button);
-    this.add(textField);
+    this.add(box);
     this.pack();
     this.setVisible(true);
   }
@@ -33,7 +31,7 @@ public class MyFrame extends JFrame implements ActionListener{
   @Override
   public void actionPerformed(ActionEvent e){
     if(e.getSource() == button){
-      System.out.println(textField.getText());
+      System.out.println(box.isSelected());
     }
   }
 }
