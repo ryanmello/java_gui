@@ -1,40 +1,41 @@
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-public class MyFrame extends JFrame implements ActionListener{
-  JComboBox box;
+public class MyFrame implements ChangeListener{
+  JFrame frame;
+  JPanel panel;
+  JLabel label;
+  JSlider slider;
+  
   MyFrame() {
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setLayout(new FlowLayout());
+    frame = new JFrame("Slider Demo");
+    panel = new JPanel();
+    label = new JLabel();
+    slider = new JSlider(0, 100, 50);
 
-    String[] animals = {"dog", "cat", "bird"};
-    box = new JComboBox(animals);
-    box.addActionListener(this);
+    slider.setPreferredSize(new Dimension(400, 200));
 
-    //box.getItemCount();
-    //System.out.println(box.getItemCount());
-    box.addItem("horse");
-    box.insertItemAt("pig", 0);
-    box.setSelectedIndex(0);
-    //System.out.println(box.getItemCount());
-    box.removeItem("cat");
-    //System.out.println(box.getItemCount());
-    box.removeItemAt(0);
-    box.removeAll();
+    slider.setPaintTicks(true);
+    slider.setMinorTickSpacing(5);
+    slider.setPaintTrack(true);
+    slider.setMajorTickSpacing(25);
+    slider.setPaintLabels(true);
+    slider.setFont(new Font("MV Boli", Font.PLAIN, 15));
+    slider.setOrientation(SwingConstants.VERTICAL);
+    label.setText("°C = "+slider.getValue());
+    slider.addChangeListener(this);
+    panel.add(slider);
+    panel.add(label);
+    frame.add(panel);
+    frame.setSize(400, 400);
+    frame.setVisible(true);
     
-    
-    this.add(box);
-    this.pack();
-    this.setVisible(true);
   }
   
   @Override
-  public void actionPerformed(ActionEvent e){
-    if(e.getSource() == box){
-      //System.out.println(box.getSelectedItem());
-      System.out.println(box.getSelectedIndex());
-    }
+  public void stateChanged(ChangeEvent e){
+    label.setText("°C = "+slider.getValue());
   }
 }
