@@ -3,39 +3,41 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MyFrame implements ChangeListener{
-  JFrame frame;
-  JPanel panel;
-  JLabel label;
-  JSlider slider;
+public class MyFrame {
+
+  JFrame frame = new JFrame();
+  JProgressBar bar = new JProgressBar(0, 500);
   
   MyFrame() {
-    frame = new JFrame("Slider Demo");
-    panel = new JPanel();
-    label = new JLabel();
-    slider = new JSlider(0, 100, 50);
-
-    slider.setPreferredSize(new Dimension(400, 200));
-
-    slider.setPaintTicks(true);
-    slider.setMinorTickSpacing(5);
-    slider.setPaintTrack(true);
-    slider.setMajorTickSpacing(25);
-    slider.setPaintLabels(true);
-    slider.setFont(new Font("MV Boli", Font.PLAIN, 15));
-    slider.setOrientation(SwingConstants.VERTICAL);
-    label.setText("°C = "+slider.getValue());
-    slider.addChangeListener(this);
-    panel.add(slider);
-    panel.add(label);
-    frame.add(panel);
-    frame.setSize(400, 400);
-    frame.setVisible(true);
+    bar.setValue(0);
+    bar.setBounds(0, 0, 400, 50);
+    bar.setStringPainted(true);
+    bar.setFont(new Font("MV Boli", Font.BOLD, 25));
+    bar.setForeground(Color.red);
+    bar.setBackground(Color.black);
     
+    frame.add(bar);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(400, 400);
+    frame.setLayout(null);
+    frame.setVisible(true);
+
+    fill();
   }
-  
-  @Override
-  public void stateChanged(ChangeEvent e){
-    label.setText("°C = "+slider.getValue());
+
+  public void fill(){
+    int counter = 500;
+    
+    while(counter > 0){
+      
+      bar.setValue(counter);
+      try{
+        Thread.sleep(50);
+      } catch (InterruptedException e){
+        e.printStackTrace();
+      }
+      counter -= 1;
+    }
+    bar.setString("Done");
   }
 }
