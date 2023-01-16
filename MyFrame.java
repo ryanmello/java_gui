@@ -4,33 +4,55 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-public class MyFrame extends JFrame implements ActionListener{
-  JButton button;
+public class MyFrame extends JFrame implements KeyListener{
+
+  JLabel label;
+  
   MyFrame() {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setLayout(new FlowLayout());
+    this.setSize(500, 500);
+    this.setLayout(null);
+    this.addKeyListener(this);
 
-    button = new JButton("Select File");
-    button.addActionListener(this);
+    label = new JLabel();
+    label.setBounds(0, 0, 100, 100);
+    label.setBackground(Color.red);
+    label.setOpaque(true);
 
-    this.add(button);
-    this.pack();
+    this.getContentPane().setBackground(Color.black);
+    this.add(label);
     this.setVisible(true);
   }
 
   @Override
-  public void actionPerformed(ActionEvent e){
-    if(e.getSource() == button){
-      JFileChooser fileChooser = new JFileChooser();
-
-      fileChooser.setCurrentDirectory(new File("."));
-
-      int response = fileChooser.showSaveDialog(null);
-      //System.out.println(file.showOpenDialog(null));
-      if(response == JFileChooser.APPROVE_OPTION){
-        File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-        System.out.println(file);
-      }
+  public void keyTyped(KeyEvent e){
+    switch(e.getKeyChar()){
+      case 'w': label.setLocation(label.getX(), label.getY() - 10);
+        break;
+      case 'a': label.setLocation(label.getX() - 10, label.getY());
+        break;
+      case 's': label.setLocation(label.getX(), label.getY() + 10);
+        break;
+      case 'd': label.setLocation(label.getX() + 10, label.getY());
+        break;
     }
+  }
+
+  public void keyPressed(KeyEvent e){
+    switch(e.getKeyCode()){
+      case 38: label.setLocation(label.getX(), label.getY() - 10); // 87
+        break;
+      case 37: label.setLocation(label.getX() - 10, label.getY()); // 65
+        break;
+      case 40: label.setLocation(label.getX(), label.getY() + 10); // 83
+        break;
+      case 39: label.setLocation(label.getX() + 10, label.getY()); // 68
+        break;
+    }
+  }
+
+  public void keyReleased(KeyEvent e){
+    //System.out.println("You released key character: " + e.getKeyChar());
+    System.out.println("You released key code: " + e.getKeyCode());
   }
 }
